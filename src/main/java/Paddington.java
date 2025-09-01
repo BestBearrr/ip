@@ -35,9 +35,25 @@ public class Paddington {
                 } else {
                     // Display all saved tasks
                     for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + ". " + tasks[i].getDescription());
+                        System.out.println((i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
                     }
                 }
+            }
+            // Mark as done
+            else if (userInput.startsWith("mark ")) {
+                int taskIndex = Integer.parseInt(userInput.substring(5)) - 1;
+                Task t = tasks[taskIndex];
+                System.out.println("Nice! I've marked this task as done:");
+                t.markAsDone();
+                System.out.println("  [" + t.getStatusIcon() + "] " + t.description);
+            }
+            // Unmark as done
+            else if (userInput.startsWith("unmark ")) {
+                int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
+                Task t = tasks[taskIndex];
+                System.out.println("OK, I've marked this task as not done yet");
+                t.unmarkAsDone();
+                System.out.println("  [" + t.getStatusIcon() + "] " + t.description);
             }
             // Add new task
             else {
