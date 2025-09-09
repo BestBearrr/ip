@@ -1,6 +1,11 @@
 import java.util.Scanner;
 
+
+
 public class Paddington {
+
+    static final int TASK_SIZE = 100;
+
     public static void main(String[] args) {
         /*String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -14,7 +19,7 @@ public class Paddington {
         System.out.println("What can I do for you?");
         System.out.print(line);
 
-        Task[] tasks = new Task[100];
+        Task[] tasks = new Task[TASK_SIZE];
         int taskCount = 0;
 
         Scanner scanner = new Scanner(System.in);
@@ -35,7 +40,8 @@ public class Paddington {
                 } else {
                     // Display all saved tasks
                     for (int i = 0; i < taskCount; i++) {
-                        System.out.println((i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+                        System.out.println((i + 1) + ".[" + tasks[i].getStatusIcon() + "] "
+                                + tasks[i].getDescription());
                     }
                 }
             }
