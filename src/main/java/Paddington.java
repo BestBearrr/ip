@@ -82,7 +82,7 @@ public class Paddington {
                 System.out.println("added: " + userInput);
         }
 
-        System.out.println(line);
+        System.out.print(line);
         return false; // Continue
     }
 
