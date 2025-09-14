@@ -56,9 +56,45 @@ public class Paddington {
         System.out.println("  [" + task.getStatusIcon() + "] " + task.getDescription());
     }
 
+    private static void printAddedTask() {
+        System.out.println("Got it. I've added this task:");
+        System.out.print("  ");
+        int latestTaskIndex = tasksList.size() - 1;
+        printTask(latestTaskIndex);
+        System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
+    }
+
+    private static void addTodo(String input) {
+        Todo task = new Todo(input);
+        tasksList.add(tasksList.size(), task);
+        printAddedTask();
+    }
+
+    private static void addEvent(String input) {
+        String[] processedInput = input.split(" /from ", 2);
+        String[] timings = processedInput[1].split(" /to ", 2);
+        String description = processedInput[0];
+        String from = timings[0];
+        String to = timings[1];
+
+        Event task = new Event(description, from, to);
+        tasksList.add(tasksList.size(), task);
+        printAddedTask();
+    }
+
+    private static void addDeadline(String input) {
+        String[] processedInput = input.split(" /by ", 2);
+        String description = processedInput[0];
+        String by = processedInput[1];
+
+        Deadline task = new Deadline(description, by);
+        tasksList.add(tasksList.size(), task);
+        printAddedTask();
+    }
+
     private static boolean userCommands(String userInput) {
         String[] processedInput = userInput.split(" ", 2);
-        String command = processedInput[0];
+        String command = processedInput[0].toLowerCase();
         String input = (processedInput.length > 1) ? processedInput[1] : "";
 
         switch(command) {
@@ -75,6 +111,15 @@ public class Paddington {
             case "unmark":
                 unmarkTask(input);
                 break;
+            case "todo":
+                addTodo(input);
+                break;
+            case "event":
+                addEvent(input);
+                break;
+            case "deadline":
+                addDeadline(input);
+                break;
             default:
                 // No command given, so add new task.
                 Task task = new Task(userInput);
@@ -89,7 +134,7 @@ public class Paddington {
     public static void main(String[] args) {
         printWelcomeMessage();
         while (true) {
-            String userInput = scanner.nextLine().toLowerCase();
+            String userInput = scanner.nextLine();
             System.out.print(line);
 
             // True: quit; False: continue
