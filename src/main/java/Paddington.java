@@ -64,7 +64,11 @@ public class Paddington {
         System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
     }
 
-    private static void addTodo(String input) {
+    private static void addTodo(String input) throws PaddingtonException {
+        if (input.isEmpty()) {
+            throw PaddingtonException.invalidTodo();
+        }
+
         Todo task = new Todo(input);
         tasksList.add(tasksList.size(), task);
         printAddedTask();
@@ -92,7 +96,7 @@ public class Paddington {
         printAddedTask();
     }
 
-    private static boolean userCommands(String userInput) {
+    private static boolean userCommands(String userInput) throws PaddingtonException {
         String[] processedInput = userInput.split(" ", 2);
         String command = processedInput[0].toLowerCase();
         String input = (processedInput.length > 1) ? processedInput[1] : "";
@@ -121,17 +125,15 @@ public class Paddington {
                 addDeadline(input);
                 break;
             default:
-                // No command given, so add new task.
-                Task task = new Task(userInput);
-                tasksList.add(tasksList.size(), task);
-                System.out.println("added: " + userInput);
+                // Invalid command.
+                throw PaddingtonException.invalidCommand();
         }
 
         System.out.print(line);
         return false; // Continue
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PaddingtonException {
         printWelcomeMessage();
         while (true) {
             String userInput = scanner.nextLine();
