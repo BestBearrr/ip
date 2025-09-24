@@ -1,3 +1,5 @@
+package paddington.ui;
+
 public class PaddingtonException extends Exception {
     public PaddingtonException(String s) {
         super(s);
@@ -8,14 +10,14 @@ public class PaddingtonException extends Exception {
     }
 
     public static PaddingtonException invalidTodo() {
-        return new PaddingtonException("Missing description of Todo task!");
+        return new PaddingtonException("Missing description of paddington.task.Todo task!");
     }
 
     public static PaddingtonException invalidEvent() {
-        return new PaddingtonException("Missing description of Event task!");
+        return new PaddingtonException("Missing description of paddington.task.Event task!");
     }
 
     public static PaddingtonException invalidDeadline() {
-        return new PaddingtonException("Missing description of Deadline task!");
+        return new PaddingtonException("Missing description of paddington.task.Deadline task!");
     }
 }
