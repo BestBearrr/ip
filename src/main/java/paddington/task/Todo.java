@@ -12,7 +12,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public String saveTask() {
+    public String formatToSave() {
         return "T" + super.toString();
     }
 }

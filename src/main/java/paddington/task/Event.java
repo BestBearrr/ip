@@ -16,7 +16,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String saveTask() {
+    public String formatToSave() {
         return "E" + super.toString() + SEPARATOR + from + " " + to;
     }
 }
