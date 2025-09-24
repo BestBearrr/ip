@@ -8,6 +8,14 @@ public class PaddingtonException extends Exception {
     }
 
     public static PaddingtonException invalidTodo() {
-        return new PaddingtonException("Missing description of todo task!");
+        return new PaddingtonException("Missing description of Todo task!");
+    }
+
+    public static PaddingtonException invalidEvent() {
+        return new PaddingtonException("Missing description of Event task!");
+    }
+
+    public static PaddingtonException invalidDeadline() {
+        return new PaddingtonException("Missing description of Deadline task!");
     }
 }

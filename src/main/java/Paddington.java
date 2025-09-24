@@ -22,6 +22,10 @@ public class Paddington {
         System.out.print(line);
     }
 
+    private static void printErrorDescription(String errorDescription) {
+        System.out.println("(!) Error: " + errorDescription);
+    }
+
     private static void printTask(int index) {
         System.out.println(tasksList.get(index).toString());
     }
@@ -74,9 +78,21 @@ public class Paddington {
         printAddedTask();
     }
 
-    private static void addEvent(String input) {
+    private static void addEvent(String input) throws PaddingtonException {
+        if (input.isEmpty()) {
+            throw PaddingtonException.invalidEvent();
+        }
+
         String[] processedInput = input.split(" /from ", 2);
+        if (processedInput.length != 2) {
+            throw new PaddingtonException("Event task should include start and end time!");
+        }
+
         String[] timings = processedInput[1].split(" /to ", 2);
+        if (timings.length != 2) {
+            throw new PaddingtonException("Event task should include end time!");
+        }
+
         String description = processedInput[0];
         String from = timings[0];
         String to = timings[1];
@@ -86,8 +102,16 @@ public class Paddington {
         printAddedTask();
     }
 
-    private static void addDeadline(String input) {
+    private static void addDeadline(String input) throws PaddingtonException {
+        if (input.isEmpty()) {
+            throw PaddingtonException.invalidDeadline();
+        }
+
         String[] processedInput = input.split(" /by ", 2);
+        if (processedInput.length != 2) {
+            throw new PaddingtonException("Deadline task should include due date!");
+        }
+
         String description = processedInput[0];
         String by = processedInput[1];
 
@@ -110,10 +134,22 @@ public class Paddington {
                 listAllTasks();
                 break;
             case "mark":
-                markTask(input);
+                try {
+                    markTask(input);
+                } catch (NumberFormatException e) {
+                    printErrorDescription("Index must be an integer.");
+                } catch (IndexOutOfBoundsException e) {
+                    printErrorDescription("Invalid Index");
+                }
                 break;
             case "unmark":
-                unmarkTask(input);
+                try {
+                    unmarkTask(input);
+                } catch (NumberFormatException e) {
+                    printErrorDescription("Index must be an integer.");
+                } catch (IndexOutOfBoundsException e) {
+                    printErrorDescription("Invalid Index");
+                }
                 break;
             case "todo":
                 addTodo(input);
