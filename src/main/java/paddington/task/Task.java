@@ -1,6 +1,7 @@
 package paddington.task;
 
-public class Task {
+public abstract class Task {
+    protected final String SEPARATOR = " | ";
     protected String description;
     protected boolean isDone;
 
@@ -28,4 +29,8 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + getDescription();
     }
+
+    public String formatToSave() {
+        return SEPARATOR + (isDone ? "1" : "0") + SEPARATOR + description;
+    };
 }
