@@ -24,7 +24,7 @@ public class Paddington {
         System.out.println("Hello from\n" + logo);*/
 
         System.out.print(line);
-        System.out.println("Hello! I'm paddington.ui.Paddington");
+        System.out.println("Hello! I'm Paddington");
         System.out.println("What can I do for you?");
         System.out.print(line);
     }
@@ -56,7 +56,7 @@ public class Paddington {
         Task task = tasksList.get(taskIndex);
         task.markAsDone();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  [" + task.getStatusIcon() + "] " + task.getDescription());
+        System.out.println("  " + task.toString());
     }
 
     private static void unmarkTask(String input) {
@@ -64,7 +64,16 @@ public class Paddington {
         Task task = tasksList.get(taskIndex);
         task.unmarkAsDone();
         System.out.println("OK, I've marked this task as not done yet");
-        System.out.println("  [" + task.getStatusIcon() + "] " + task.getDescription());
+        System.out.println("  " + task.toString());
+    }
+
+    private static void deleteTask(String input) {
+        int taskIndex = Integer.parseInt(input) - 1;
+        Task task = tasksList.get(taskIndex);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + task.toString());
+        tasksList.remove(taskIndex);
+        System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
     }
 
     private static void printAddedTask() {
@@ -152,6 +161,15 @@ public class Paddington {
             case "unmark":
                 try {
                     unmarkTask(input);
+                } catch (NumberFormatException e) {
+                    printErrorDescription("Index must be an integer.");
+                } catch (IndexOutOfBoundsException e) {
+                    printErrorDescription("Invalid Index");
+                }
+                break;
+            case "delete":
+                try {
+                    deleteTask(input);
                 } catch (NumberFormatException e) {
                     printErrorDescription("Index must be an integer.");
                 } catch (IndexOutOfBoundsException e) {
