@@ -1,3 +1,10 @@
+package paddington.ui;
+
+import paddington.task.Deadline;
+import paddington.task.Event;
+import paddington.task.Task;
+import paddington.task.Todo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,7 +24,7 @@ public class Paddington {
         System.out.println("Hello from\n" + logo);*/
 
         System.out.print(line);
-        System.out.println("Hello! I'm Paddington");
+        System.out.println("Hello! I'm paddington.ui.Paddington");
         System.out.println("What can I do for you?");
         System.out.print(line);
     }
@@ -85,12 +92,12 @@ public class Paddington {
 
         String[] processedInput = input.split(" /from ", 2);
         if (processedInput.length != 2) {
-            throw new PaddingtonException("Event task should include start and end time!");
+            throw new PaddingtonException("paddington.task.Event task should include start and end time!");
         }
 
         String[] timings = processedInput[1].split(" /to ", 2);
         if (timings.length != 2) {
-            throw new PaddingtonException("Event task should include end time!");
+            throw new PaddingtonException("paddington.task.Event task should include end time!");
         }
 
         String description = processedInput[0];
@@ -109,7 +116,7 @@ public class Paddington {
 
         String[] processedInput = input.split(" /by ", 2);
         if (processedInput.length != 2) {
-            throw new PaddingtonException("Deadline task should include due date!");
+            throw new PaddingtonException("paddington.task.Deadline task should include due date!");
         }
 
         String description = processedInput[0];
