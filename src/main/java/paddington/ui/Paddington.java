@@ -1,18 +1,14 @@
 package paddington.ui;
 
-import paddington.task.Deadline;
-import paddington.task.Event;
-import paddington.task.Task;
-import paddington.task.Todo;
+import paddington.storage.Storage;
+import paddington.task.TaskList;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Paddington {
     static final String line = "____________________________________________________________\n";
-    static final int MAX_TASK_SIZE = 100;
 
-    static ArrayList<Task> tasksList = new ArrayList<>(MAX_TASK_SIZE);
     static Scanner scanner = new Scanner(System.in);
 
     private static void printWelcomeMessage() {
@@ -33,109 +29,6 @@ public class Paddington {
         System.out.println("(!) Error: " + errorDescription);
     }
 
-    private static void printTask(int index) {
-        System.out.println(tasksList.get(index).toString());
-    }
-
-    private static void listAllTasks() {
-        // Display all saved tasks
-        if (tasksList.isEmpty()) {
-            System.out.println("No saved tasks.");
-            return;
-        }
-
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasksList.size(); i++) {
-            System.out.print((i + 1) + ".");
-            printTask(i);
-        }
-    }
-
-    private static void markTask(String input) {
-        int taskIndex = Integer.parseInt(input) - 1;
-        Task task = tasksList.get(taskIndex);
-        task.markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task.toString());
-    }
-
-    private static void unmarkTask(String input) {
-        int taskIndex = Integer.parseInt(input) - 1;
-        Task task = tasksList.get(taskIndex);
-        task.unmarkAsDone();
-        System.out.println("OK, I've marked this task as not done yet");
-        System.out.println("  " + task.toString());
-    }
-
-    private static void deleteTask(String input) {
-        int taskIndex = Integer.parseInt(input) - 1;
-        Task task = tasksList.get(taskIndex);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task.toString());
-        tasksList.remove(taskIndex);
-        System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
-    }
-
-    private static void printAddedTask() {
-        System.out.println("Got it. I've added this task:");
-        System.out.print("  ");
-        int latestTaskIndex = tasksList.size() - 1;
-        printTask(latestTaskIndex);
-        System.out.println("Now you have " + tasksList.size() + " tasks in the list.");
-    }
-
-    private static void addTodo(String input) throws PaddingtonException {
-        if (input.isEmpty()) {
-            throw PaddingtonException.invalidTodo();
-        }
-
-        Todo task = new Todo(input);
-        tasksList.add(tasksList.size(), task);
-        printAddedTask();
-    }
-
-    private static void addEvent(String input) throws PaddingtonException {
-        if (input.isEmpty()) {
-            throw PaddingtonException.invalidEvent();
-        }
-
-        String[] processedInput = input.split(" /from ", 2);
-        if (processedInput.length != 2) {
-            throw new PaddingtonException("paddington.task.Event task should include start and end time!");
-        }
-
-        String[] timings = processedInput[1].split(" /to ", 2);
-        if (timings.length != 2) {
-            throw new PaddingtonException("paddington.task.Event task should include end time!");
-        }
-
-        String description = processedInput[0];
-        String from = timings[0];
-        String to = timings[1];
-
-        Event task = new Event(description, from, to);
-        tasksList.add(tasksList.size(), task);
-        printAddedTask();
-    }
-
-    private static void addDeadline(String input) throws PaddingtonException {
-        if (input.isEmpty()) {
-            throw PaddingtonException.invalidDeadline();
-        }
-
-        String[] processedInput = input.split(" /by ", 2);
-        if (processedInput.length != 2) {
-            throw new PaddingtonException("paddington.task.Deadline task should include due date!");
-        }
-
-        String description = processedInput[0];
-        String by = processedInput[1];
-
-        Deadline task = new Deadline(description, by);
-        tasksList.add(tasksList.size(), task);
-        printAddedTask();
-    }
-
     private static boolean userCommands(String userInput) throws PaddingtonException {
         String[] processedInput = userInput.split(" ", 2);
         String command = processedInput[0].toLowerCase();
@@ -147,11 +40,11 @@ public class Paddington {
                 System.out.print(line);
                 return true;
             case "list":
-                listAllTasks();
+                TaskList.listAllTasks();
                 break;
             case "mark":
                 try {
-                    markTask(input);
+                    TaskList.markTask(input);
                 } catch (NumberFormatException e) {
                     printErrorDescription("Index must be an integer.");
                 } catch (IndexOutOfBoundsException e) {
@@ -160,7 +53,7 @@ public class Paddington {
                 break;
             case "unmark":
                 try {
-                    unmarkTask(input);
+                    TaskList.unmarkTask(input);
                 } catch (NumberFormatException e) {
                     printErrorDescription("Index must be an integer.");
                 } catch (IndexOutOfBoundsException e) {
@@ -169,7 +62,7 @@ public class Paddington {
                 break;
             case "delete":
                 try {
-                    deleteTask(input);
+                    TaskList.deleteTask(input);
                 } catch (NumberFormatException e) {
                     printErrorDescription("Index must be an integer.");
                 } catch (IndexOutOfBoundsException e) {
@@ -177,13 +70,13 @@ public class Paddington {
                 }
                 break;
             case "todo":
-                addTodo(input);
+                TaskList.addTodo(input);
                 break;
             case "event":
-                addEvent(input);
+                TaskList.addEvent(input);
                 break;
             case "deadline":
-                addDeadline(input);
+                TaskList.addDeadline(input);
                 break;
             default:
                 // Invalid command.
@@ -195,13 +88,24 @@ public class Paddington {
     }
 
     public static void main(String[] args) throws PaddingtonException {
+        // Load data from storage
+        try {
+            Storage.init();
+            Storage.load();
+        } catch (IOException e) {
+            throw new PaddingtonException(e.getMessage());
+        }
+
+        // Start
         printWelcomeMessage();
-        while (true) {
+
+        boolean isQuit = false;
+        while (!isQuit) {
             String userInput = scanner.nextLine();
             System.out.print(line);
-
-            // True: quit; False: continue
-            if (userCommands(userInput)) break;
+            isQuit = userCommands(userInput);
+            // Save task list
+            Storage.save(TaskList.getTaskList());
         }
 
         scanner.close();

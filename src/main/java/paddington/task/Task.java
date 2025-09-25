@@ -1,12 +1,18 @@
 package paddington.task;
 
-public class Task {
+public abstract class Task {
+    protected final String DELIMITER = " | ";
     protected String description;
     protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     public String getDescription() {
@@ -28,4 +34,8 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + getDescription();
     }
+
+    public String formatToSave() {
+        return DELIMITER + (isDone ? "1" : "0") + DELIMITER + description;
+    };
 }
