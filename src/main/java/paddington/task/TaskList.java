@@ -80,12 +80,12 @@ public class TaskList {
 
         String[] processedInput = input.split(" /from ", 2);
         if (processedInput.length != 2) {
-            throw new PaddingtonException("paddington.task.Event task should include start and end time!");
+            throw new PaddingtonException("Event task should include start and end time!");
         }
 
         String[] timings = processedInput[1].split(" /to ", 2);
         if (timings.length != 2) {
-            throw new PaddingtonException("paddington.task.Event task should include end time!");
+            throw new PaddingtonException("Event task should include end time!");
         }
 
         String description = processedInput[0];
