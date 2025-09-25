@@ -65,8 +65,7 @@ public class Parser {
                 TaskList.addDeadline(params);
                 break;
             default:
-                // Invalid command.
-                throw PaddingtonException.invalidCommand();
+                Ui.printErrorDescription("Invalid Command");
         }
     }
 }
