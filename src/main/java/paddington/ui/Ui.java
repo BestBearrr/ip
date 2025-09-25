@@ -34,12 +34,30 @@ public class Ui {
         System.out.println(string);
     }
 
-    public static void printAddTask() {
-        System.out.println("Got it. I've added this task:");
+    public static void printTask(String taskString) {
+        System.out.println("  " + taskString);
     }
 
-    public static void printDeleteTask() {
+    public static void printAddTask(String taskString, int taskCount) {
+        System.out.println("Got it. I've added this task:");
+        printTask(taskString);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+
+    public static void printDeleteTask(String taskString, int taskCount) {
         System.out.println("Noted. I've removed this task:");
+        printTask(taskString);
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    }
+
+    public static void printMarkTask(String taskString) {
+        System.out.println("Nice! I've marked this task as done:");
+        printTask(taskString);
+    }
+
+    public static void printUnmarkTask(String taskString) {
+        System.out.println("OK, I've marked this task as not done yet");
+        printTask(taskString);
     }
 
 }
