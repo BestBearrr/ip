@@ -6,6 +6,7 @@ import paddington.ui.Ui;
 
 public class Parser {
     private static boolean isQuit = false;
+    private static boolean isTaskListChanged = false;
 
     public static boolean getIsQuit() {
         return isQuit;
@@ -15,7 +16,13 @@ public class Parser {
         Parser.isQuit = isQuit;
     }
 
+    public static boolean getIsTaskListChanged() {
+        return isTaskListChanged;
+    }
+
     public static void parseInput(String input) throws PaddingtonException {
+        isTaskListChanged = false;
+
         String[] processedInput = input.split(" ", 2);
         String command = processedInput[0].toLowerCase();
         String params = (processedInput.length > 1) ? processedInput[1] : "";
@@ -34,6 +41,7 @@ public class Parser {
             case "mark":
                 try {
                     TaskList.markTask(params);
+                    isTaskListChanged = true;
                 } catch (NumberFormatException e) {
                     Ui.printErrorDescription("Index must be an integer.");
                 } catch (IndexOutOfBoundsException e) {
@@ -43,6 +51,7 @@ public class Parser {
             case "unmark":
                 try {
                     TaskList.unmarkTask(params);
+                    isTaskListChanged = true;
                 } catch (NumberFormatException e) {
                     Ui.printErrorDescription("Index must be an integer.");
                 } catch (IndexOutOfBoundsException e) {
@@ -52,6 +61,7 @@ public class Parser {
             case "delete":
                 try {
                     TaskList.deleteTask(params);
+                    isTaskListChanged = true;
                 } catch (NumberFormatException e) {
                     Ui.printErrorDescription("Index must be an integer.");
                 } catch (IndexOutOfBoundsException e) {
@@ -60,12 +70,15 @@ public class Parser {
                 break;
             case "todo":
                 TaskList.addTodo(params);
+                isTaskListChanged = true;
                 break;
             case "event":
                 TaskList.addEvent(params);
+                isTaskListChanged = true;
                 break;
             case "deadline":
                 TaskList.addDeadline(params);
+                isTaskListChanged = true;
                 break;
             default:
                 Ui.printErrorDescription("Invalid Command");

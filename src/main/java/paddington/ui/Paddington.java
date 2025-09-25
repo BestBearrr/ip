@@ -28,8 +28,9 @@ public class Paddington {
             Parser.parseInput(userInput);
             Ui.printHorizontalLine();
 
-            // Save task list
-            Storage.save(TaskList.getTaskList());
+            if (Parser.getIsTaskListChanged()) {
+                Storage.save(TaskList.getTaskList());
+            }
         }
 
         scanner.close();
