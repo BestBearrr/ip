@@ -22,4 +22,9 @@ public class Ui {
         System.out.println("(!) Error: " + errorDescription);
     }
 
+    static void printGoodbye() {
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.print(line);
+    }
+
 }

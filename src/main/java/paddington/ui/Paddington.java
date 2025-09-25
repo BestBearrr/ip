@@ -18,8 +18,7 @@ public class Paddington {
 
         switch(command) {
             case "bye":
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.print(line);
+                Ui.printGoodbye();
                 return true;
             case "list":
                 TaskList.listAllTasks();
