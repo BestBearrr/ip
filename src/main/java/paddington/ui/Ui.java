@@ -3,6 +3,10 @@ package paddington.ui;
 public class Ui {
     static final String line = "____________________________________________________________\n";
 
+    public static void printHorizontalLine() {
+        System.out.print(line);
+    }
+
     static void printWelcomeMessage() {
         /* Old Duke Logo
         String logo = " ____        _        \n"
@@ -12,19 +16,19 @@ public class Ui {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);*/
 
-        System.out.print(line);
+        printHorizontalLine();
         System.out.println("Hello! I'm Paddington");
         System.out.println("What can I do for you?");
-        System.out.print(line);
+        printHorizontalLine();
     }
 
-    static void printErrorDescription(String errorDescription) {
+    public static void printErrorDescription(String errorDescription) {
         System.out.println("(!) Error: " + errorDescription);
     }
 
-    static void printGoodbye() {
+    public static void printGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.print(line);
+        printHorizontalLine();
     }
 
     public static void paddingtonPrint(String string) {

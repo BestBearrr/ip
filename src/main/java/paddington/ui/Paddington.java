@@ -1,5 +1,6 @@
 package paddington.ui;
 
+import paddington.parser.Parser;
 import paddington.storage.Storage;
 import paddington.task.TaskList;
 
@@ -7,66 +8,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Paddington {
-    static final String line = "____________________________________________________________\n";
-
     static Scanner scanner = new Scanner(System.in);
-
-    private static boolean userCommands(String userInput) throws PaddingtonException {
-        String[] processedInput = userInput.split(" ", 2);
-        String command = processedInput[0].toLowerCase();
-        String input = (processedInput.length > 1) ? processedInput[1] : "";
-
-        switch(command) {
-            case "bye":
-                Ui.printGoodbye();
-                return true;
-            case "list":
-                TaskList.listAllTasks();
-                break;
-            case "mark":
-                try {
-                    TaskList.markTask(input);
-                } catch (NumberFormatException e) {
-                    Ui.printErrorDescription("Index must be an integer.");
-                } catch (IndexOutOfBoundsException e) {
-                    Ui.printErrorDescription("Invalid Index");
-                }
-                break;
-            case "unmark":
-                try {
-                    TaskList.unmarkTask(input);
-                } catch (NumberFormatException e) {
-                    Ui.printErrorDescription("Index must be an integer.");
-                } catch (IndexOutOfBoundsException e) {
-                    Ui.printErrorDescription("Invalid Index");
-                }
-                break;
-            case "delete":
-                try {
-                    TaskList.deleteTask(input);
-                } catch (NumberFormatException e) {
-                    Ui.printErrorDescription("Index must be an integer.");
-                } catch (IndexOutOfBoundsException e) {
-                    Ui.printErrorDescription("Invalid Index");
-                }
-                break;
-            case "todo":
-                TaskList.addTodo(input);
-                break;
-            case "event":
-                TaskList.addEvent(input);
-                break;
-            case "deadline":
-                TaskList.addDeadline(input);
-                break;
-            default:
-                // Invalid command.
-                throw PaddingtonException.invalidCommand();
-        }
-
-        System.out.print(line);
-        return false; // Continue
-    }
 
     public static void main(String[] args) throws PaddingtonException {
         // Load data from storage
@@ -80,11 +22,12 @@ public class Paddington {
         // Start
         Ui.printWelcomeMessage();
 
-        boolean isQuit = false;
-        while (!isQuit) {
+        while (!Parser.getIsQuit()) {
             String userInput = scanner.nextLine();
-            System.out.print(line);
-            isQuit = userCommands(userInput);
+            Ui.printHorizontalLine();
+            Parser.parseInput(userInput);
+            Ui.printHorizontalLine();
+
             // Save task list
             Storage.save(TaskList.getTaskList());
         }
