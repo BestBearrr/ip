@@ -27,4 +27,19 @@ public class Ui {
         System.out.print(line);
     }
 
+    public static void paddingtonPrint(String string) {
+        System.out.print(string);
+    }
+    public static void paddingtonPrintln(String string) {
+        System.out.println(string);
+    }
+
+    public static void printAddTask() {
+        System.out.println("Got it. I've added this task:");
+    }
+
+    public static void printDeleteTask() {
+        System.out.println("Noted. I've removed this task:");
+    }
+
 }

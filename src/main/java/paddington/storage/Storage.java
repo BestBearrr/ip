@@ -1,7 +1,6 @@
 package paddington.storage;
 
 import paddington.task.*;
-import paddington.ui.Paddington;
 import paddington.ui.PaddingtonException;
 
 import java.io.File;
@@ -53,7 +52,7 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 Task task = readFromSave(line);
-                TaskList.addTask(task);
+                TaskList.addTaskSilently(task);
             }
         } catch (FileNotFoundException e) {
             throw new PaddingtonException("Error loading saved data file.");

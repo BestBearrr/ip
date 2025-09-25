@@ -1,53 +1,56 @@
 package paddington.task;
 
-import paddington.storage.Storage;
 import paddington.ui.PaddingtonException;
+import paddington.ui.Ui;
 
 import java.util.ArrayList;
 
 public class TaskList {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
-    private static void printTask(int index) {
-        System.out.println(tasks.get(index).toString());
-    }
-
-    private static void printAddedTask() {
-        System.out.println("Got it. I've added this task:");
-        System.out.print("  ");
-        int latestTaskIndex = tasks.size() - 1;
-        printTask(latestTaskIndex);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-    }
-
     public static ArrayList<Task> getTaskList() {
         return tasks;
     }
 
-    public static void addTask(Task task) {
+    public static int getTaskCount() {
+        return tasks.size();
+    }
+
+    public static Task getTask(int index) {
+        return tasks.get(index);
+    }
+
+    public static void addTaskSilently(Task task) {
         tasks.add(task);
+    }
+
+    private static void addTask(Task task) {
+        tasks.add(task);
+        Ui.printAddTask();
+        System.out.println("  " + task.toString());
+        System.out.println("Now you have " + getTaskCount() + " tasks in the list.");
     }
 
     public static void deleteTask(String input) {
         int taskIndex = Integer.parseInt(input) - 1;
-        Task task = tasks.get(taskIndex);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task.toString());
+        String taskString = getTask(taskIndex).toString();
         tasks.remove(taskIndex);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        Ui.printDeleteTask();
+        System.out.println("  " + taskString);
+        System.out.println("Now you have " + getTaskCount() + " tasks in the list.");
     }
 
     public static void listAllTasks() {
         // Display all saved tasks
         if (tasks.isEmpty()) {
-            System.out.println("No saved tasks.");
+            Ui.paddingtonPrint("No saved tasks.");
             return;
         }
 
-        System.out.println("Here are the tasks in your list:");
+        Ui.paddingtonPrint("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.print((i + 1) + ".");
-            printTask(i);
+            Ui.paddingtonPrint((i + 1) + ".");
+            Ui.paddingtonPrintln(getTaskString(i));
         }
     }
 
@@ -72,9 +75,8 @@ public class TaskList {
             throw PaddingtonException.invalidTodo();
         }
 
-        Todo task = new Todo(input);
-        tasks.add(tasks.size(), task);
-        printAddedTask();
+        Todo todo = new Todo(input);
+        addTask(todo);
     }
 
     public static void addEvent(String input) throws PaddingtonException {
@@ -96,9 +98,8 @@ public class TaskList {
         String from = timings[0];
         String to = timings[1];
 
-        Event task = new Event(description, from, to);
-        tasks.add(tasks.size(), task);
-        printAddedTask();
+        Event event = new Event(description, from, to);
+        addTask(event);
     }
 
     public static void addDeadline(String input) throws PaddingtonException {
@@ -114,8 +115,7 @@ public class TaskList {
         String description = processedInput[0];
         String by = processedInput[1];
 
-        Deadline task = new Deadline(description, by);
-        tasks.add(tasks.size(), task);
-        printAddedTask();
+        Deadline deadline = new Deadline(description, by);
+        addTask(deadline);
     }
 }
