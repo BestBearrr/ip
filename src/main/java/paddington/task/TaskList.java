@@ -28,6 +28,15 @@ public class TaskList {
         tasks.add(task);
     }
 
+    public static void deleteTask(String input) {
+        int taskIndex = Integer.parseInt(input) - 1;
+        Task task = tasks.get(taskIndex);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + task.toString());
+        tasks.remove(taskIndex);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
     public static void listAllTasks() {
         // Display all saved tasks
         if (tasks.isEmpty()) {
