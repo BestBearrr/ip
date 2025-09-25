@@ -6,13 +6,21 @@ public class Event extends Task {
 
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        setFrom(from);
+        setTo(to);
     }
 
     public Event(String description, boolean isDone, String from, String to) {
         super(description, isDone);
+        setFrom(from);
+        setTo(to);
+    }
+
+    private void setFrom(String from) {
         this.from = from;
+    }
+
+    private void setTo(String to) {
         this.to = to;
     }
 

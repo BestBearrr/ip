@@ -6,11 +6,15 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        setBy(by);
     }
 
     public Deadline(String description, boolean isDone, String by) {
         super(description, isDone);
+        setBy(by);
+    }
+
+    private void setBy(String by) {
         this.by = by;
     }
 
