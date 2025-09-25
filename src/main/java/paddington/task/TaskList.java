@@ -56,7 +56,7 @@ public class TaskList {
         Task task = tasks.get(taskIndex);
         task.markAsDone();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  [" + task.getStatusIcon() + "] " + task.getDescription());
+        System.out.println(task.toString());
     }
 
     public static void unmarkTask(String input) {
@@ -64,7 +64,7 @@ public class TaskList {
         Task task = tasks.get(taskIndex);
         task.unmarkAsDone();
         System.out.println("OK, I've marked this task as not done yet");
-        System.out.println("  [" + task.getStatusIcon() + "] " + task.getDescription());
+        System.out.println(task.toString());
     }
 
     public static void addTodo(String input) throws PaddingtonException {
