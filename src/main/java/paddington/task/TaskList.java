@@ -4,6 +4,7 @@ import paddington.ui.PaddingtonException;
 import paddington.ui.Ui;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
     private static final ArrayList<Task> tasks = new ArrayList<>();
@@ -45,8 +46,25 @@ public class TaskList {
 
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.print((i + 1) + ".");
+            System.out.print("  " + (i + 1) + ".");
             System.out.println(getTask(i).toString());
+        }
+    }
+
+    public static void findTask(String input) {
+        ArrayList<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.getDescription().contains(input.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No matching tasks found.");
+            return;
+        }
+
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.print("  " + (i + 1) + ".");
+            System.out.println(matchingTasks.get(i).toString());
         }
     }
 
