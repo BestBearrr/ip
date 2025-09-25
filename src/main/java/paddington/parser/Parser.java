@@ -28,6 +28,9 @@ public class Parser {
             case "list":
                 TaskList.listAllTasks();
                 break;
+            case "find":
+                TaskList.findTask(params);
+                break;
             case "mark":
                 try {
                     TaskList.markTask(params);
