@@ -11,24 +11,6 @@ public class Paddington {
 
     static Scanner scanner = new Scanner(System.in);
 
-    private static void printWelcomeMessage() {
-        /*String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);*/
-
-        System.out.print(line);
-        System.out.println("Hello! I'm Paddington");
-        System.out.println("What can I do for you?");
-        System.out.print(line);
-    }
-
-    private static void printErrorDescription(String errorDescription) {
-        System.out.println("(!) Error: " + errorDescription);
-    }
-
     private static boolean userCommands(String userInput) throws PaddingtonException {
         String[] processedInput = userInput.split(" ", 2);
         String command = processedInput[0].toLowerCase();
@@ -46,27 +28,27 @@ public class Paddington {
                 try {
                     TaskList.markTask(input);
                 } catch (NumberFormatException e) {
-                    printErrorDescription("Index must be an integer.");
+                    Ui.printErrorDescription("Index must be an integer.");
                 } catch (IndexOutOfBoundsException e) {
-                    printErrorDescription("Invalid Index");
+                    Ui.printErrorDescription("Invalid Index");
                 }
                 break;
             case "unmark":
                 try {
                     TaskList.unmarkTask(input);
                 } catch (NumberFormatException e) {
-                    printErrorDescription("Index must be an integer.");
+                    Ui.printErrorDescription("Index must be an integer.");
                 } catch (IndexOutOfBoundsException e) {
-                    printErrorDescription("Invalid Index");
+                    Ui.printErrorDescription("Invalid Index");
                 }
                 break;
             case "delete":
                 try {
                     TaskList.deleteTask(input);
                 } catch (NumberFormatException e) {
-                    printErrorDescription("Index must be an integer.");
+                    Ui.printErrorDescription("Index must be an integer.");
                 } catch (IndexOutOfBoundsException e) {
-                    printErrorDescription("Invalid Index");
+                    Ui.printErrorDescription("Invalid Index");
                 }
                 break;
             case "todo":
@@ -97,7 +79,7 @@ public class Paddington {
         }
 
         // Start
-        printWelcomeMessage();
+        Ui.printWelcomeMessage();
 
         boolean isQuit = false;
         while (!isQuit) {
