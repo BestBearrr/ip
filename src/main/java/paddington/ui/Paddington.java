@@ -1,7 +1,9 @@
 package paddington.ui;
 
+import paddington.storage.Storage;
 import paddington.task.TaskList;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Paddington {
@@ -77,13 +79,24 @@ public class Paddington {
     }
 
     public static void main(String[] args) throws PaddingtonException {
+        // Load data from storage
+        try {
+            Storage.init();
+            Storage.load();
+        } catch (IOException e) {
+            throw new PaddingtonException(e.getMessage());
+        }
+
+        // Start
         printWelcomeMessage();
-        while (true) {
+
+        boolean isQuit = false;
+        while (!isQuit) {
             String userInput = scanner.nextLine();
             System.out.print(line);
-
-            // True: quit; False: continue
-            if (userCommands(userInput)) break;
+            isQuit = userCommands(userInput);
+            // Save task list
+            Storage.save(TaskList.getTaskList());
         }
 
         scanner.close();

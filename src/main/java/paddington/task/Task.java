@@ -1,13 +1,18 @@
 package paddington.task;
 
 public abstract class Task {
-    protected final String SEPARATOR = " | ";
+    protected final String DELIMITER = " | ";
     protected String description;
     protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     public String getDescription() {
@@ -31,6 +36,6 @@ public abstract class Task {
     }
 
     public String formatToSave() {
-        return SEPARATOR + (isDone ? "1" : "0") + SEPARATOR + description;
+        return DELIMITER + (isDone ? "1" : "0") + DELIMITER + description;
     };
 }

@@ -1,11 +1,12 @@
 package paddington.task;
 
+import paddington.storage.Storage;
 import paddington.ui.PaddingtonException;
 
 import java.util.ArrayList;
 
 public class TaskList {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     private static void printTask(int index) {
         System.out.println(tasks.get(index).toString());
@@ -17,6 +18,14 @@ public class TaskList {
         int latestTaskIndex = tasks.size() - 1;
         printTask(latestTaskIndex);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    public static ArrayList<Task> getTaskList() {
+        return tasks;
+    }
+
+    public static void addTask(Task task) {
+        tasks.add(task);
     }
 
     public static void listAllTasks() {
