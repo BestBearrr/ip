@@ -39,7 +39,13 @@ public class Paddington {
         while (!Parser.getIsQuit()) {
             String userInput = scanner.nextLine();
             Ui.printHorizontalLine();
-            Parser.parseInput(userInput);
+
+            try {
+                Parser.parseInput(userInput);
+            } catch (PaddingtonException e) {
+                Ui.printErrorDescription(e.getMessage());
+            }
+
             Ui.printHorizontalLine();
 
             if (Parser.getIsTaskListChanged()) {
