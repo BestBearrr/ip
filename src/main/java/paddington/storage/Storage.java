@@ -10,10 +10,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the saving and loading of task data to and from a file.
+ * The {@link Storage} class provides methods for initialising, loading and saving tasks to a persistent file system.
+ * The tasks are stored in a file named {@code PaddingtonData.txt}.
+ */
 public class Storage {
 
     private static final String DATA_FILE_PATH = "./data/PaddingtonData.txt";
 
+    /**
+     * Reads a task from a saved string representation.
+     * The line is parsed based on the task type (Todo, Deadline, Event).
+     *
+     * @param line the saved string representation of a task
+     * @return the corresponding task object
+     * @throws PaddingtonException if the task format is invalid
+     */
     private static Task readFromSave(String line) throws PaddingtonException {
         char taskType = line.charAt(0);
 
@@ -25,6 +38,12 @@ public class Storage {
         };
     }
 
+    /**
+     * Initialises the storage by creating the necessary file and directories if they do not exist.
+     * Creates save file if an existing one is not found.
+     *
+     * @throws IOException if an I/O error occurs while creating directories or the file
+     */
     public static void init() throws IOException {
         File file = new File(DATA_FILE_PATH);
 
@@ -44,6 +63,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the saved tasks from the storage file and adds them to the task list.
+     * Each line in the file is parsed to create a task and add it to the task list.
+     *
+     * @throws PaddingtonException if there is an error while loading the tasks
+     */
     public static void load() throws PaddingtonException {
         File file = new File(DATA_FILE_PATH);
 
@@ -59,6 +84,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the current list of tasks to the storage file.
+     * Each task is converted to its string format and written to the file.
+     *
+     * @param tasks the list of tasks to save
+     * @throws PaddingtonException if there is an error while saving the tasks
+     */
     public static void save(ArrayList<Task> tasks) throws PaddingtonException {
         FileWriter writer = null;
         try {
