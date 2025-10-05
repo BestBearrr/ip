@@ -53,15 +53,8 @@ public class Ui {
     }
 
     public static void printGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
-        printHorizontalLine();
-    }
-
-    public static void paddingtonPrint(String string) {
-        System.out.print(string);
-    }
-    public static void paddingtonPrintln(String string) {
-        System.out.println(string);
+        System.out.println("This train terminates here. All change please.");
+        System.out.println("Thank you for travelling with Paddington. Here's some marmalade and see you soon!");
     }
 
     public static void printTask(String taskString) {
