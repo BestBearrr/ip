@@ -98,7 +98,7 @@ public class TaskList {
      */
     public static void findTask(String input) {
         ArrayList<Task> matchingTasks = tasks.stream()
-                .filter(task -> task.getDescription().contains(input.toLowerCase()))
+                .filter(task -> task.getDescription().toLowerCase().contains(input.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList::new));
 
         if (matchingTasks.isEmpty()) {
