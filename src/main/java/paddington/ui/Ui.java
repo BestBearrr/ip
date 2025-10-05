@@ -8,16 +8,42 @@ public class Ui {
     }
 
     static void printWelcomeMessage() {
-        /* Old Duke Logo
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);*/
+        final String logo = "                   _\n" +
+                "            .--,-\"\" \"\"-.\n" +
+                "           (            )\n" +
+                "            j-  __.    |\n" +
+                "            |  '     -'|\n" +
+                "            |`--._____,+-.\n" +
+                "          .';`--.___.'    `.\n" +
+                "        .'         /    _  |\n" +
+                "       /        ,-' _.-'o;__\\\n" +
+                "      (           .' o.-'  \\)`.\n" +
+                "       `j--..___.'   '     /   )\n" +
+                "      (/   _    `-._    `-/`--' ,----.\n" +
+                "      (.'   `--. `. `-._.'`._,-<o ===|\n" +
+                "     .'         \\  `.  /\\`./`.  `----'\n" +
+                "   .'            |   `' _\\,() \\\n" +
+                " .'          ;_)      ()___/   \\\n" +
+                "/   `._____.'             |     \\\n" +
+                "\\       /    =====.       \\  _   `.\n" +
+                " `.____/  /        \\     __\\/()    \\\n" +
+                "     .'  (          )  ()____/     .'\n" +
+                "    /     `---    -'        |\\   .'\n" +
+                "    `---.___                | `-'\n" +
+                "          .-`--.________.---'`.\n" +
+                "       .-'              /      \\\n" +
+                "      /               .'        \\\n" +
+                "     /            _.-'\\          |\n" +
+                "     |  `-.____.-'     `.        ; .-\"\"-.\n" +
+                "     |      |            `.      ,'     |\n" +
+                "     \\      |              \\            /\n" +
+                "      `.___.'               `.         /\n" +
+                "                              \\      .'\n" +
+                "                               `.__.'\n";
 
         printHorizontalLine();
-        System.out.println("Hello! I'm Paddington");
+        System.out.print(logo);
+        System.out.println("Hello! I'm Paddington.");
         System.out.println("What can I do for you?");
         printHorizontalLine();
     }

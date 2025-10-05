@@ -27,61 +27,49 @@ public class Parser {
         String command = processedInput[0].toLowerCase();
         String params = (processedInput.length > 1) ? processedInput[1] : "";
 
-        switch (command) {
-            case "bye":
-                Ui.printGoodbye();
-                isQuit = true;
-                break;
-            case "list":
-                TaskList.listAllTasks();
-                break;
-            case "find":
-                TaskList.findTask(params);
-                break;
-            case "mark":
-                try {
+        try {
+            switch (command) {
+                case "bye":
+                    Ui.printGoodbye();
+                    isQuit = true;
+                    break;
+                case "list":
+                    TaskList.listAllTasks();
+                    break;
+                case "find":
+                    TaskList.findTask(params);
+                    break;
+                case "mark":
                     TaskList.markTask(params);
                     isTaskListChanged = true;
-                } catch (NumberFormatException e) {
-                    Ui.printErrorDescription("Index must be an integer.");
-                } catch (IndexOutOfBoundsException e) {
-                    Ui.printErrorDescription("Invalid Index");
-                }
-                break;
-            case "unmark":
-                try {
+                    break;
+                case "unmark":
                     TaskList.unmarkTask(params);
                     isTaskListChanged = true;
-                } catch (NumberFormatException e) {
-                    Ui.printErrorDescription("Index must be an integer.");
-                } catch (IndexOutOfBoundsException e) {
-                    Ui.printErrorDescription("Invalid Index");
-                }
-                break;
-            case "delete":
-                try {
+                    break;
+                case "delete":
                     TaskList.deleteTask(params);
                     isTaskListChanged = true;
-                } catch (NumberFormatException e) {
-                    Ui.printErrorDescription("Index must be an integer.");
-                } catch (IndexOutOfBoundsException e) {
-                    Ui.printErrorDescription("Invalid Index");
-                }
-                break;
-            case "todo":
-                TaskList.addTodo(params);
-                isTaskListChanged = true;
-                break;
-            case "event":
-                TaskList.addEvent(params);
-                isTaskListChanged = true;
-                break;
-            case "deadline":
-                TaskList.addDeadline(params);
-                isTaskListChanged = true;
-                break;
-            default:
-                Ui.printErrorDescription("Invalid Command");
+                    break;
+                case "todo":
+                    TaskList.addTodo(params);
+                    isTaskListChanged = true;
+                    break;
+                case "event":
+                    TaskList.addEvent(params);
+                    isTaskListChanged = true;
+                    break;
+                case "deadline":
+                    TaskList.addDeadline(params);
+                    isTaskListChanged = true;
+                    break;
+                default:
+                    Ui.printErrorDescription("Invalid Command");
+            }
+        } catch (NumberFormatException e) {
+            Ui.printErrorDescription("Index must be an integer.");
+        } catch (IndexOutOfBoundsException e) {
+            Ui.printErrorDescription("Invalid Index");
         }
     }
 }

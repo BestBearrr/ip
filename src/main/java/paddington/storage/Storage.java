@@ -30,17 +30,17 @@ public class Storage {
 
         // Found save file.
         if (file.exists()) {
-            System.out.println("Found save file.");
+            System.out.println("Log: Found save file.");
             return;
         }
 
         // Else, create save file.
         File parentDir = file.getParentFile();
         if (parentDir.mkdirs()) {
-            System.out.println("Created directory at " + parentDir);
+            System.out.println("Log: Created directory at " + parentDir);
         }
         if (file.createNewFile()) {
-            System.out.println("Created new save file at " + file.getPath());
+            System.out.println("Log: Created new save file at " + file.getPath());
         }
     }
 
