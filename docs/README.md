@@ -1,7 +1,7 @@
 # Paddington User Guide
 
-<img src="PaddingtonImage1.png" width="500"></img>
-<img src="PaddingtonImage2.png" width="500"></img>
+<img src="PaddingtonImage1.png" width="500">
+<img src="PaddingtonImage2.png" width="500">
 
 The Paddington chatbot is a desktop app for managing tasks, optimised for use via a Command Line Interface (CLI).
 Manage your tasks easily. Add to-dos, deadlines and events, mark completed ones, and searching by keywords.
@@ -22,9 +22,7 @@ With the Paddington Bear, your tasks are kept safely and organised at Paddington
 6. Type a command and press Enter to execute it.\
    You may refer to the Features below for details of each command.
 
----
-
-# Features
+## Features
 
 ### Adding a todo: `todo`
 Adds a task with its description.
