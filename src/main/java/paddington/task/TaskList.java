@@ -6,30 +6,67 @@ import paddington.ui.Ui;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a list of tasks in the Paddington application.
+ * The {@link TaskList} class is responsible for managing the collection of tasks, including
+ * adding, deleting, marking, and unmarking tasks, as well as listing and searching tasks.
+ */
 public class TaskList {
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
+    /**
+     * Returns the list of all tasks.
+     *
+     * @return the list of tasks
+     */
     public static ArrayList<Task> getTaskList() {
         return tasks;
     }
 
+    /**
+     * Returns the total number of tasks in the list.
+     *
+     * @return the task count
+     */
     public static int getTaskCount() {
         return tasks.size();
     }
 
+    /**
+     * Returns the task at the specified index.
+     *
+     * @param index the index of the task
+     * @return the task at the specified index
+     */
     public static Task getTask(int index) {
         return tasks.get(index);
     }
 
+    /**
+     * Adds a task to the list without printing a message.
+     * Used at initialisation load tasks from storage.
+     *
+     * @param task the task to add
+     */
     public static void addTaskSilently(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Adds a task to the list and prints a confirmation message.
+     *
+     * @param task the task to add
+     */
     private static void addTask(Task task) {
         tasks.add(task);
         Ui.printAddTask(task.toString(), getTaskCount());
     }
 
+    /**
+     * Deletes a task from the list based on the given index.
+     *
+     * @param input the index of the task to delete
+     */
     public static void deleteTask(String input) {
         int taskIndex = Integer.parseInt(input) - 1;
         String taskString = getTask(taskIndex).toString();
@@ -37,6 +74,9 @@ public class TaskList {
         Ui.printDeleteTask(taskString, getTaskCount());
     }
 
+    /**
+     * Lists all the tasks in the list.
+     */
     public static void listAllTasks() {
         // Display all saved tasks
         if (tasks.isEmpty()) {
@@ -51,6 +91,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches for tasks containing the given input in their description.
+     *
+     * @param input the string to search for in task descriptions
+     */
     public static void findTask(String input) {
         ArrayList<Task> matchingTasks = tasks.stream()
                 .filter(task -> task.getDescription().contains(input.toLowerCase()))
@@ -68,6 +113,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as done based on the given index.
+     *
+     * @param input the index of the task to mark as done
+     */
     public static void markTask(String input) {
         int taskIndex = Integer.parseInt(input) - 1;
         Task task = getTask(taskIndex);
@@ -75,6 +125,11 @@ public class TaskList {
         Ui.printMarkTask(task.toString());
     }
 
+    /**
+     * Unmarks a task as done based on the given index.
+     *
+     * @param input the index of the task to unmark
+     */
     public static void unmarkTask(String input) {
         int taskIndex = Integer.parseInt(input) - 1;
         Task task = getTask(taskIndex);
@@ -82,6 +137,12 @@ public class TaskList {
         Ui.printUnmarkTask(task.toString());
     }
 
+    /**
+     * Adds a Todo task to the list.
+     *
+     * @param input the description of the Todo task
+     * @throws PaddingtonException if the input is empty
+     */
     public static void addTodo(String input) throws PaddingtonException {
         if (input.isEmpty()) {
             throw PaddingtonException.invalidTodo();
@@ -91,6 +152,12 @@ public class TaskList {
         addTask(todo);
     }
 
+    /**
+     * Adds an Event task to the list.
+     *
+     * @param input the description of the Event task with the start and end times
+     * @throws PaddingtonException if the input is invalid or missing required parts
+     */
     public static void addEvent(String input) throws PaddingtonException {
         if (input.isEmpty()) {
             throw PaddingtonException.invalidEvent();
@@ -114,6 +181,12 @@ public class TaskList {
         addTask(event);
     }
 
+    /**
+     * Adds a Deadline task to the list.
+     *
+     * @param input the description of the Deadline task with the due date
+     * @throws PaddingtonException if the input is invalid or missing required parts
+     */
     public static void addDeadline(String input) throws PaddingtonException {
         if (input.isEmpty()) {
             throw PaddingtonException.invalidDeadline();
