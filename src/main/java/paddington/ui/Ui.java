@@ -7,7 +7,7 @@ public class Ui {
         System.out.print(line);
     }
 
-    static void printWelcomeMessage() {
+    public static void printWelcomeMessage() {
         final String logo = "                   _\n" +
                 "            .--,-\"\" \"\"-.\n" +
                 "           (            )\n" +

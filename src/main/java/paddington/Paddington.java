@@ -1,8 +1,10 @@
-package paddington.ui;
+package paddington;
 
 import paddington.parser.Parser;
 import paddington.storage.Storage;
 import paddington.task.TaskList;
+import paddington.ui.PaddingtonException;
+import paddington.ui.Ui;
 
 import java.io.IOException;
 import java.util.Scanner;
