@@ -9,9 +9,21 @@ import paddington.ui.Ui;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Main class for the Paddington chatbot.
+ * Initialises storage, loads tasks and processes user input until bye command is inputted.
+ */
 public class Paddington {
     static Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Main entry point of the Paddington chatbot.
+     * Initializes storage, loads tasks, displays a welcome message, and processes user input.
+     * Saves tasks if modified.
+     *
+     * @param args command-line arguments (unused)
+     * @throws PaddingtonException if there's an error loading storage or tasks
+     */
     public static void main(String[] args) throws PaddingtonException {
         // Load data from storage
         try {
